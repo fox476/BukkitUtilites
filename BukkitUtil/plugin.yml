@@ -1,0 +1,7 @@
+name: BukkitUtil
+main: me.com.fox476.MainUtil
+version: 1.0
+commands:
+   Blank:
+      description: Blank description.
+      usage: /<command>
