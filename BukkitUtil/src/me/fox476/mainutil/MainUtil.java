@@ -1,20 +1,26 @@
 package me.fox476.mainutil;
 
-import org.bukkit.event.Listener;
+import java.util.logging.Logger;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MainUtil extends JavaPlugin implements Listener {
+public class MainUtil extends JavaPlugin {
+	public final Logger logger = Logger.getLogger("Minecraft");
+	public static MainUtil plugin;
 	
 	@Override
 	public void onEnable() {
-		getServer().getPluginManager().registerEvents(this, this);
-		this.getLogger().info("Strating up Bukkit Utilites!");
+		PluginDescriptionFile PYF = this.getDescription();
+		this.logger.info(PYF.getName() + " Description: " + PYF.getDescription() + PYF.getVersion() + " Version" + " Has Been Enable!");
 		new KeepInv(this);
+		new SpamSecure(this);
 		new ItemDropCleaner(this);
 	}
 	@Override
 	public void onDisable(){
-		this.getLogger().info("shuting down Bukkit Utilites!");
+		PluginDescriptionFile PYF = this.getDescription();
+		this.logger.info(PYF.getName() + PYF.getVersion() + " Version" + "Has Been Disable!");
+		
 	}
 
 }
