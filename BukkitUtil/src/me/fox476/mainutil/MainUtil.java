@@ -15,6 +15,9 @@ public class MainUtil extends JavaPlugin {
 		new KeepInv(this);
 		new SpamSecure(this);
 		new ItemDropCleaner(this);
+		new ChatControl(this);
+		new Jail(this);
+		new TheWatch(this);
 	}
 	@Override
 	public void onDisable(){
