@@ -1,5 +1,5 @@
 name: BukkitUtil
-main: me.com.fox476.MainUtil
+main: me.fox476.mainutil.MainUtil
 version: 1.0
 commands:
    Blank:
