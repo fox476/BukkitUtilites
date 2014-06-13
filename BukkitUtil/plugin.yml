@@ -5,3 +5,7 @@ commands:
    Blank:
       description: Blank description.
       usage: /<command>
+permissions:
+   keepinv.enable: 
+      description: Keep inv.
+      default: false
