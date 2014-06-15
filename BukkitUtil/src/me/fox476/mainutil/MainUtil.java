@@ -25,7 +25,7 @@ public class MainUtil extends JavaPlugin {
 	private String rcmd;                           // SpamSecure
 	private String kcmd;                          // SpamSecure
 	private int lines;                           // SpamSecure
-	private int secounds;                        // SpamSecure
+	private int seconds;                        // SpamSecure
 	private int kicks;                            // SpamSecure
 	private int duplicates;                       // SpamSecure
 	private Map<String, SpamSecure> SpamSecure = new HashMap<String, SpamSecure>();    // SpamSecure
@@ -54,9 +54,9 @@ public class MainUtil extends JavaPlugin {
 		this.logger.info(PYF.getName() + PYF.getVersion() + " Version" + "Has Been Disable!");
 		
 	}
-	
+	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command commmand, String label, String[] args){
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if (args.length == 0){return false; }
 		String sub = subCommand(args[0]);
 		if (command.getName().equalsIgnoreCase("SpamSeucre")){
@@ -117,10 +117,11 @@ public class MainUtil extends JavaPlugin {
 			getServer().getLogger().info(message);
 		}
 	}
-	public void spamsecure(){
+	@SuppressWarnings("deprecation")
+	public void SpamSecure(){
 		for (Player player : getServer().getOnlinePlayers()){
-			if (spammers.containsKey(player.getName())){contiune; }
-			spammers.put(player.getName(), new Spammer(this, player.getName()));  // Spammer change to SpamSecure if needed
+			if (SpamSecure.containsKey(player.getName())) { continue; }
+			SpamSecure.put(player.getName(), new SpamSecure(this, player.getName()));
 		}
 		getConfig().setDefaults(YamlConfiguration.loadConfiguration(this.getClass().getResourceAsStream("/config.yml")));
 		if (!new File(getDataFolder(), "config.yml").exists()){
@@ -131,7 +132,7 @@ public class MainUtil extends JavaPlugin {
 		this.bcmd = getConfig().getString("ban_command", "kick [user] You have been banned for being a excessivly annoying cow.");
 		this.kcmd = getConfig().getString("kick_command", "kick [user] Stop spamming. [kicks]");
 		this.lines = getConfig().getInt("spam.lines", 3);
-		this.secounds = getConfig().getInt("seconds", 1);
+		this.seconds = getConfig().getInt("seconds", 1);
 		this.kicks = getConfig().getInt("spam.kicks", 3);
 		this.duplicates = getConfig().getInt("spam.duplicates", 3);
 		
@@ -151,13 +152,13 @@ public class MainUtil extends JavaPlugin {
 	}
 	public void unregister(String player){
 		debug(player + " has been unregistered.");
-		spammers.remove(player);        // spammers = spamsecure
+		SpamSecure.remove(player);
 	}
 	public boolean addLine(String player, String message){
-		if (!spammers.containsKey(player)){
-			spammers.put(player, new Spamer(this, player));
+		if (!SpamSecure.containsKey(player)){
+			SpamSecure.put(player, new SpamSecure(this, player));
 		}
-		return spammers.get(player).addLine(message);
+		return SpamSecure.get(player).addLine(message);
 	}
 	public String getKickCommand(){
 		return kcmd;
@@ -170,6 +171,9 @@ public class MainUtil extends JavaPlugin {
 	}
 	public int getLines(){
 		return lines;
+	}
+	public int getTime(){
+		return seconds * 1000;
 	}
 	public int getMaxDuplicates(){
 		return duplicates;

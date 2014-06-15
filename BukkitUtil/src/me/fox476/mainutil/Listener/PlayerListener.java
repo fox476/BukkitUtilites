@@ -9,13 +9,13 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+@SuppressWarnings("deprecation")
 public class PlayerListener implements Listener {
 	private MainUtil plugin;
 	
 	public PlayerListener(MainUtil instance){
 		this.plugin = instance;
 	}
-	
 	@EventHandler(priority = EventPriority.LOWEST)
 	void playerChat(PlayerChatEvent event){
 		event.setCancelled(plugin.addLine(event.getPlayer().getName(), event.getMessage()));

@@ -15,7 +15,7 @@ public class SpamSecure implements Listener {
 	private long time = 0;
 	private String message;
 	
-	public Spammer(MainUtil instance, String player){
+	public SpamSecure(MainUtil instance, String player){
 		plugin = instance;
 		name = player;
 		kicks = plugin.getConfig().getInt("Spammer." + player, 0);
@@ -34,6 +34,7 @@ public class SpamSecure implements Listener {
 		plugin.getConfig().set("spammers." + name, kicks);
 		return true;
 	}
+	@SuppressWarnings("deprecation")
 	public boolean addLine(String msg){
 		if (plugin.getServer().getPlayer(name).hasPermission("SpamSecre.free")){
 			return false;
@@ -49,8 +50,14 @@ public class SpamSecure implements Listener {
 		if (duplicates >= plugin.getMaxDuplicates()){
 			return kick();
 		}
-		if (lines >= plugin.getLines()){
-			
+		if (System.currentTimeMillis() - time <= plugin.getTime()){
+			plugin.debug(">> " + name + ": spam line - " + lines + "/" + plugin.getLines());
+			if (lines >= plugin.getLines()){
+				return kick();
+			}
+		}else {
+			lines = 0;
+			time = System.currentTimeMillis();
 		}
 		return false;
 	}
